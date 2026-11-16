@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Clip → Text</title>
+    <link rel="stylesheet" href="viewer.css" />
+  </head>
+  <body>
+    <header class="bar">
+      <div class="brand">
+        <span class="dot" aria-hidden="true"></span>
+        <h1>Image Clip Viewer</h1>
+      </div>
+      <div class="actions">
+        <button id="btn-read" class="btn" type="button">Clipboard dobara padho</button>
+        <button id="btn-copy" class="btn" type="button" disabled>Copy</button>
+        <a id="btn-download" class="btn btn-primary is-disabled" download>Download</a>
+      </div>
+    </header>
+
+    <main id="stage">
+      <section id="empty" class="empty">
+        <p class="title">Clipboard ki image yahan khul jayegi</p>
+        <p class="hint">
+          WhatsApp (Windows app <em>ya</em> Chrome wali WhatsApp Web — dono) me image par right-click →
+          <strong>Copy image</strong> karo, phir yahan <kbd>Ctrl</kbd>+<kbd>V</kbd> dabao.
+          Drag &amp; drop bhi chalta hai.
+        </p>
+
+        <div id="blob-card" class="card hidden">
+          <p class="card-title">Clipboard me <code>blob:</code> URL mila</p>
+          <p class="card-url" id="blob-url"></p>
+          <p class="card-hint">
+            <code>blob:</code> URL sirf usi site ke andar khulti hai jahan se aayi thi, is liye Chrome ise
+            address bar me nahi kholta. Agar aap <strong>WhatsApp Windows app</strong> use karte hain to ye
+            card ignore karo — wahan se image par right-click → <strong>Copy image</strong> karo aur seedha
+            <kbd>Ctrl</kbd>+<kbd>V</kbd> dabao.
+          </p>
+          <div class="card-actions">
+            <button id="btn-relay" class="btn btn-primary" type="button">WhatsApp tab se image laao</button>
+          </div>
+        </div>
+      </section>
+
+      <img id="preview" class="preview hidden" alt="Clipboard image preview" />
+    </main>
+
+    <footer class="meta">
+      <span id="meta-type">—</span>
+      <span id="meta-size"></span>
+      <span id="meta-dims"></span>
+      <span id="status" class="status" role="status"></span>
+    </footer>
+
+    <div id="toast" class="toast hidden" role="status"></div>
+
+    <script src="viewer.js"></script>
+  </body>
+</html>

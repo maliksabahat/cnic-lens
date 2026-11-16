@@ -1,0 +1,19 @@
+# Offline assets (downloaded via setup/fetch-vendor.ps1) — not in git
+vendor/
+
+# Real CNIC scans used for testing — never commit personal data
+test data/
+testdata/
+
+# Scratch files
+dev-*.html
+*.zip
+*.7z
+*.log
+
+# OS / editor
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/

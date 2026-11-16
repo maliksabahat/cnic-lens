@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Clip → Text</title>
+    <link rel="stylesheet" href="sidepanel.css" />
+  </head>
+  <body>
+    <div class="scroll-top">
+      <header class="head">
+        <div class="brand">
+          <span class="dot" aria-hidden="true"></span>
+          <strong>Clip → Text</strong>
+          <span class="chip" id="offline-chip" title="Sab kuch aap ke computer par chalta hai">OFFLINE</span>
+        </div>
+        <button id="btn-settings" class="icon-btn" type="button" title="Settings">⚙</button>
+      </header>
+
+      <!-- mode switch -->
+      <div class="modes" role="group" aria-label="Mode">
+        <button class="mode is-active" data-mode="offline" type="button">Offline</button>
+        <button class="mode" data-mode="online" type="button">Online ⚡</button>
+      </div>
+
+      <!-- settings (online keys) -->
+      <section id="settings-card" class="card hidden">
+        <div class="row">
+          <label class="lbl" for="provider">Provider</label>
+          <select id="provider" class="select">
+            <option value="gemini" selected>Gemini — best (free key)</option>
+            <option value="ocrspace">OCR.space (free key)</option>
+          </select>
+        </div>
+        <div class="row" id="row-gemini">
+          <label class="lbl" for="gemini-key">Key</label>
+          <input id="gemini-key" class="input" type="password" placeholder="AIza… (aistudio.google.com/apikey)" autocomplete="off" />
+        </div>
+        <div class="row hidden" id="row-ocrspace">
+          <label class="lbl" for="ocrspace-key">Key</label>
+          <input id="ocrspace-key" class="input" type="password" placeholder="ocr.space/ocrapi/freekey" autocomplete="off" />
+        </div>
+        <div class="row">
+          <button id="btn-save-online" class="btn btn-sm grow" type="button">Save</button>
+          <button id="btn-test-online" class="btn btn-sm" type="button">Test</button>
+        </div>
+        <p class="hint" id="online-hint">
+          Online mode sirf tab use hota hai jab aap "Online" chunte hain. Offline mode bilkul local rehta hai.
+        </p>
+      </section>
+
+      <!-- image -->
+      <section class="card image-card">
+        <div id="dropzone" class="dropzone">
+          <button id="btn-open-tab" class="img-action hidden" type="button" title="Naye tab me kholo">⤢</button>
+          <img id="preview" class="preview hidden" alt="Pasted image" />
+          <div id="dropzone-empty" class="dz-empty">
+            <div class="dz-icon" aria-hidden="true">🖼</div>
+            <p class="dz-title">Image paste karo</p>
+            <p class="dz-sub">Ctrl+V &nbsp;·&nbsp; drag &amp; drop &nbsp;·&nbsp; ya</p>
+            <div class="dz-actions">
+              <button id="btn-clip" class="btn btn-sm" type="button">Clipboard</button>
+              <button id="btn-file" class="btn btn-sm" type="button">File</button>
+            </div>
+            <input id="file-input" type="file" accept="image/*" class="hidden" />
+          </div>
+        </div>
+      </section>
+
+      <!-- ocr controls -->
+      <section class="card">
+        <div class="row">
+          <label class="lbl" for="lang">Script</label>
+          <select id="lang" class="select">
+            <option value="both" selected>Urdu + English</option>
+            <option value="urd">Urdu only</option>
+            <option value="eng">English only</option>
+          </select>
+        </div>
+        <div class="row">
+          <button id="btn-ocr" class="btn btn-primary grow" type="button" disabled>Text nikaalo (OCR)</button>
+          <button id="btn-clear" class="btn" type="button" title="Sab clear karo">✕</button>
+        </div>
+        <div id="progress-wrap" class="progress-wrap hidden">
+          <div class="progress"><div id="progress-bar" class="progress-bar"></div></div>
+          <span id="progress-text" class="progress-text"></span>
+        </div>
+      </section>
+    </div>
+
+    <!-- results -->
+    <section class="card results-card">
+      <div class="tabs">
+        <button class="tab is-active" data-tab="fields" type="button">Fields</button>
+        <button class="tab" data-tab="ur" type="button">Raw</button>
+        <button class="tab" data-tab="en" type="button">English</button>
+      </div>
+
+      <div id="pane-fields" class="pane">
+        <div id="fields-list" class="fields">
+          <p class="empty-note">OCR chalne ke baad card ke fields yahan aayenge.</p>
+        </div>
+        <div class="pane-actions">
+          <button id="btn-copy-fields" class="btn btn-sm" type="button" disabled>Copy fields</button>
+          <button id="btn-fill" class="btn btn-sm" type="button" disabled title="Khule hue form me fields daal do">Form bhar do</button>
+          <span id="fields-meta" class="meta"></span>
+        </div>
+      </div>
+
+      <div id="pane-ur" class="pane hidden">
+        <textarea id="out-ur" class="textarea" spellcheck="false" placeholder="OCR ka text yahan aayega…"></textarea>
+        <div class="pane-actions">
+          <button id="btn-copy-ur" class="btn btn-sm" type="button">Copy</button>
+          <span id="ocr-meta" class="meta"></span>
+        </div>
+      </div>
+
+      <div id="pane-en" class="pane hidden">
+        <textarea id="out-en" class="textarea" spellcheck="false" placeholder="English translation yahan aayega…"></textarea>
+        <div class="pane-actions">
+          <button id="btn-copy-en" class="btn btn-sm" type="button">Copy</button>
+          <span id="mt-meta" class="meta"></span>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-bar">
+      <button id="btn-translate" class="btn btn-primary grow" type="button" disabled>English me translate karo</button>
+      <button id="btn-download" class="btn" type="button" title="Text file download">⤓</button>
+    </div>
+
+    <div id="status" class="status" role="status"></div>
+
+    <div id="toast" class="toast hidden" role="status"></div>
+
+    <script src="vendor/tesseract.min.js"></script>
+    <script src="ocr.js"></script>
+    <script src="fields.js"></script>
+    <script src="online.js"></script>
+    <script src="translate.js"></script>
+    <script src="sidepanel.js"></script>
+  </body>
+</html>

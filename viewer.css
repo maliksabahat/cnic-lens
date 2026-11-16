@@ -1,0 +1,269 @@
+:root {
+  --bg: #0f1115;
+  --bg-soft: #171a21;
+  --line: #262b35;
+  --text: #e7eaf0;
+  --muted: #98a1b3;
+  --accent: #22c55e;
+  --accent-dark: #16a34a;
+  --warn: #f59e0b;
+  --err: #ef4444;
+  --radius: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.5 "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ---------- top bar ---------- */
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 10px 16px;
+  background: var(--bg-soft);
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.15);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: #1e232c;
+  color: var(--text);
+  padding: 7px 13px;
+  border-radius: var(--radius);
+  font: inherit;
+  font-size: 13px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, opacity 0.15s;
+}
+
+.btn:hover:not(:disabled):not(.is-disabled) {
+  background: #262c37;
+  border-color: #39414f;
+}
+
+.btn:disabled,
+.btn.is-disabled {
+  opacity: 0.45;
+  cursor: default;
+  pointer-events: none;
+}
+
+.btn-primary {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+  color: #04120a;
+  font-weight: 600;
+}
+
+.btn-primary:hover:not(:disabled):not(.is-disabled) {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ---------- stage ---------- */
+
+#stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  overflow: auto;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+.preview {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #000;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.55);
+}
+
+.empty {
+  max-width: 620px;
+  width: 100%;
+  text-align: center;
+  padding: 28px 22px;
+  border: 1px dashed var(--line);
+  border-radius: 14px;
+  background: rgba(23, 26, 33, 0.7);
+}
+
+.empty .title {
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.empty .hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+kbd {
+  display: inline-block;
+  padding: 1px 6px;
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  background: #10131a;
+  font: inherit;
+  font-size: 12px;
+}
+
+/* ---------- blob card ---------- */
+
+.card {
+  margin-top: 18px;
+  padding: 14px;
+  text-align: left;
+  border: 1px solid #3a3f2a;
+  border-radius: 12px;
+  background: rgba(245, 158, 11, 0.07);
+}
+
+.card-title {
+  margin: 0 0 8px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.card-url {
+  margin: 0 0 8px;
+  padding: 7px 9px;
+  border-radius: 7px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #c8d0e0;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 11.5px;
+  word-break: break-all;
+  max-height: 76px;
+  overflow: auto;
+}
+
+.card-hint {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+code {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 12px;
+  color: #fcd34d;
+}
+
+/* ---------- footer ---------- */
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 8px 16px;
+  border-top: 1px solid var(--line);
+  background: var(--bg-soft);
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.status.ok {
+  color: var(--accent);
+}
+
+.status.warn {
+  color: var(--warn);
+}
+
+.status.err {
+  color: var(--err);
+}
+
+/* ---------- toast ---------- */
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 46px;
+  transform: translateX(-50%);
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: #1f2530;
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-size: 13px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+/* ---------- drop state ---------- */
+
+body.dragging #stage {
+  outline: 2px dashed var(--accent);
+  outline-offset: -10px;
+}

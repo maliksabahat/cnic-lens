@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "Clip → Text — OCR, Fields & Translate",
+  "version": "2.2.1",
+  "description": "WhatsApp se image copy karo: card ke fields (name, father name, CNIC, dates, address) nikalo. Offline (bundled) ya Online (free API key) mode, English translation.",
+  "minimum_chrome_version": "120",
+  "permissions": ["sidePanel", "clipboardRead", "clipboardWrite", "scripting", "storage"],
+  "host_permissions": [
+    "https://web.whatsapp.com/*",
+    "https://generativelanguage.googleapis.com/*",
+    "https://api.ocr.space/*",
+    "https://translate.googleapis.com/*",
+    "https://pmybals.pmyp.gov.pk/*",
+    "file:///*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "action": {
+    "default_title": "Clip → Text  (Alt+Shift+V)",
+    "default_icon": {
+      "16": "icon16.png",
+      "32": "icon32.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "commands": {
+    "open-clip-viewer": {
+      "suggested_key": { "default": "Alt+Shift+V" },
+      "description": "Clip → Text side panel kholo"
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  }
+}
